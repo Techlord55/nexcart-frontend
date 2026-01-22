@@ -210,12 +210,19 @@ export default function HomePage() {
               <Card key={product.id} className="group hover:shadow-xl transition-all duration-300">
                 <CardHeader className="p-0">
                   <div className="relative aspect-square overflow-hidden rounded-t-lg bg-muted">
-                    <Image
-                      src={product.featured_image || '/placeholder.jpg'}
-                      alt={product.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
+                    {product.featured_image ? (
+                      <Image
+                        src={product.featured_image}
+                        alt={product.name}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                        unoptimized
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center w-full h-full">
+                        <span className="text-muted-foreground">No Image</span>
+                      </div>
+                    )}
                     {product.discount_percentage > 0 && (
                       <Badge className="absolute top-3 right-3 bg-destructive text-destructive-foreground">
                         -{product.discount_percentage}%
@@ -296,12 +303,19 @@ export default function HomePage() {
                 <Card key={product.id} className="group hover:shadow-xl transition-all duration-300">
                   <CardHeader className="p-0">
                     <div className="relative aspect-square overflow-hidden rounded-t-lg bg-muted">
-                      <Image
-                        src={product.featured_image || '/placeholder.jpg'}
-                        alt={product.name}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-300"
-                      />
+                      {product.featured_image ? (
+                        <Image
+                          src={product.featured_image}
+                          alt={product.name}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-300"
+                          unoptimized
+                        />
+                      ) : (
+                        <div className="flex items-center justify-center w-full h-full">
+                          <span className="text-muted-foreground">No Image</span>
+                        </div>
+                      )}
                     </div>
                   </CardHeader>
                   

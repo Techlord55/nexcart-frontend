@@ -194,8 +194,8 @@ export default function ProductDetailPage() {
   }
 
   const images = product.images?.length > 0 
-    ? [product.featured_image, ...product.images.map(img => img.image)]
-    : [product.featured_image || '/placeholder.jpg']
+    ? [product.featured_image, ...product.images.map(img => img.image)].filter(Boolean)
+    : product.featured_image ? [product.featured_image] : []
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -213,13 +213,20 @@ export default function ProductDetailPage() {
         {/* Images */}
         <div className="space-y-4">
           <div className="relative aspect-square overflow-hidden rounded-lg bg-muted">
-           <Image
-  src={images[selectedImage]}
-  alt={product.name}
-  fill
-  className="object-cover transition-transform duration-300 hover:scale-110 cursor-zoom-in"
-  priority
-/>
+            {images.length > 0 ? (
+              <Image
+                src={images[selectedImage]}
+                alt={product.name}
+                fill
+                className="object-cover transition-transform duration-300 hover:scale-110 cursor-zoom-in"
+                priority
+                unoptimized
+              />
+            ) : (
+              <div className="flex items-center justify-center w-full h-full">
+                <span className="text-muted-foreground text-lg">No Image Available</span>
+              </div>
+            )}
             {product.discount_percentage > 0 && (
               <Badge className="absolute top-4 right-4 bg-destructive text-lg px-3 py-1">
                 -{product.discount_percentage}%
@@ -492,12 +499,19 @@ export default function ProductDetailPage() {
               <Card key={relatedProduct.id} className="group hover:shadow-lg transition-shadow">
                 <Link href={`/products/${relatedProduct.id}`}>
                   <div className="relative aspect-square overflow-hidden rounded-t-lg bg-muted">
-                    <Image
-                      src={relatedProduct.featured_image || '/placeholder.jpg'}
-                      alt={relatedProduct.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform"
-                    />
+                    {relatedProduct.featured_image ? (
+                      <Image
+                        src={relatedProduct.featured_image}
+                        alt={relatedProduct.name}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform"
+                        unoptimized
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center w-full h-full">
+                        <span className="text-muted-foreground">No Image</span>
+                      </div>
+                    )}
                   </div>
                   <CardContent className="p-4">
                     <h3 className="font-semibold mb-2 line-clamp-2">

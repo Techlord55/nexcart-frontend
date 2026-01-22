@@ -168,12 +168,19 @@ function ProductsList() {
                 <CardHeader className="p-0">
                   <div className="relative aspect-square overflow-hidden rounded-t-lg bg-muted">
                     <Link href={`/products/${product.id}`}>
-                      <Image
-                        src={product.featured_image || '/placeholder.jpg'}
-                        alt={product.name}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-110 cursor-zoom-in"
-                      />
+                      {product.featured_image ? (
+                        <Image
+                          src={product.featured_image}
+                          alt={product.name}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-110 cursor-zoom-in"
+                          unoptimized
+                        />
+                      ) : (
+                        <div className="flex items-center justify-center w-full h-full bg-muted">
+                          <span className="text-muted-foreground">No Image</span>
+                        </div>
+                      )}
                     </Link>
                     {product.discount_percentage > 0 && (
                       <Badge className="absolute top-3 right-3 bg-destructive">

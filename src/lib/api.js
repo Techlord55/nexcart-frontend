@@ -10,9 +10,6 @@ class APIClient {
       baseURL: API_URL,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
       },
       // withCredentials not needed for same-origin requests via Next.js proxy
     });
@@ -163,7 +160,12 @@ class APIClient {
 
   // Products
   async getProducts(params) {
-    const response = await this.client.get('/products/', { params });
+    // Add timestamp to bust cache
+    const paramsWithTimestamp = {
+      ...params,
+      _t: Date.now()
+    };
+    const response = await this.client.get('/products/', { params: paramsWithTimestamp });
     return response.data;
   }
 
@@ -173,7 +175,10 @@ class APIClient {
   }
 
   async getFeaturedProducts() {
-    const response = await this.client.get('/products/featured/');
+    // Add timestamp to bust cache
+    const response = await this.client.get('/products/featured/', {
+      params: { _t: Date.now() }
+    });
     return response.data;
   }
 
