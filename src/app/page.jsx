@@ -10,7 +10,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { formatRating, formatProductsArray } from '@/lib/utils/format'; // <--- Double check this path
 import { ShoppingCart, Heart, Star, TrendingUp, Sparkles, ArrowRight, Package, Shield, Truck } from 'lucide-react'
 import Link from 'next/link'
-import Image from 'next/image'
+import ProductImage from '@/components/ProductImage'
 
 export default function HomePage() {
   const [featuredProducts, setFeaturedProducts] = useState([])
@@ -210,19 +210,12 @@ export default function HomePage() {
               <Card key={product.id} className="group hover:shadow-xl transition-all duration-300">
                 <CardHeader className="p-0">
                   <div className="relative aspect-square overflow-hidden rounded-t-lg bg-muted">
-                    {product.featured_image ? (
-                      <Image
-                        src={product.featured_image}
-                        alt={product.name}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-300"
-                        unoptimized
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center w-full h-full">
-                        <span className="text-muted-foreground">No Image</span>
-                      </div>
-                    )}
+                    <ProductImage
+                      src={product.featured_image}
+                      alt={product.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
                     {product.discount_percentage > 0 && (
                       <Badge className="absolute top-3 right-3 bg-destructive text-destructive-foreground">
                         -{product.discount_percentage}%
@@ -303,19 +296,12 @@ export default function HomePage() {
                 <Card key={product.id} className="group hover:shadow-xl transition-all duration-300">
                   <CardHeader className="p-0">
                     <div className="relative aspect-square overflow-hidden rounded-t-lg bg-muted">
-                      {product.featured_image ? (
-                        <Image
-                          src={product.featured_image}
-                          alt={product.name}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-300"
-                          unoptimized
-                        />
-                      ) : (
-                        <div className="flex items-center justify-center w-full h-full">
-                          <span className="text-muted-foreground">No Image</span>
-                        </div>
-                      )}
+                      <ProductImage
+                        src={product.featured_image}
+                        alt={product.name}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
                     </div>
                   </CardHeader>
                   
